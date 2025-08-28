@@ -325,14 +325,66 @@
         }
 
 
-        @media (min-width: 600px) {
-            .teacher {
-                flex-direction: row;
-                justify-content: space-between;
+        .teachers {
+            padding: 3rem 2rem;
+            background: #fffaf7;
+            color: #333;
+        }
+
+        .teachers__wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .teachers__photo {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .teachers__photo img {
+            width: 100%;
+            height: auto;
+            /* natural height */
+            display: block;
+            object-fit: contain;
+            /* show the entire image */
+        }
+
+
+        .teachers__copy h2 {
+            color: #e8505b;
+            margin: 0 0 1rem 0;
+        }
+
+        .teachers__copy p {
+            margin: 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+
+        /* stack on mobile */
+        @media (max-width: 899px) {
+            .teachers__wrapper {
+                grid-template-columns: 1fr;
             }
 
-            .teacher-profile {
-                width: 48%;
+            .teachers__copy {
+                order: -1;
+                /* text goes above image */
+                text-align: center;
+                /* optional: center-align for mobile */
+            }
+        }
+
+        /* two-column on desktop */
+        @media (min-width: 900px) {
+            .teachers__wrapper {
+                grid-template-columns: 1.1fr 1fr;
+                align-items: center;
             }
         }
     </style>
@@ -447,21 +499,26 @@
         </p>
     </section>
 
-    <section>
-        <h2>Susipažink su mokytojais</h2>
-        <div class="teacher">
-            <div class="teacher-profile">
-                <h3>Augustinas</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at vestibulum mauris. Suspendisse
-                    potenti. Pellentesque et lacus nec sem ultrices scelerisque.</p>
+    <section class="teachers">
+        <div class="teachers__wrapper">
+            <div class="teachers__photo">
+                <!-- Replace with your real image -->
+                <img src="images/teachers.jpg" alt="Bachata Utena mokytojai – Augustinas ir Kotryna">
             </div>
-            <div class="teacher-profile">
-                <h3>Kotryna</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis tincidunt ligula, non tempus
-                    tortor. Sed pulvinar lacus non justo iaculis cursus.</p>
+
+            <div class="teachers__copy">
+                <h2>Susipažink su mokytojais</h2>
+                <p>
+                    Meilę šokiui su jumis dalinsis <strong>Augustinas Venclovas (UK)</strong> ir
+                    <strong>Kotryna Tamašauskaitė (USA)</strong>. Šie tarptautiniai šokių mokytojai,
+                    visai neseniai grįžę į Lietuvą, dabar skleidžia bachatos ritmus Aukštaitijoje!
+                    Prisijunk ir atrask save šokyje.
+                </p>
             </div>
         </div>
     </section>
+
+
 
 
     <section>
