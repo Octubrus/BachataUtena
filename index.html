@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="lt">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bachata Utena – Prisijunk ir Tu!</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background: #fffaf7;
+            color: #333;
+        }
+
+
+
+        /* good globals */
+        html,
+        body {
+            height: 100%;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* hero container */
+        .hero {
+            position: relative;
+            /* use dynamic viewport units for mobile browser chrome */
+            min-height: 100svh;
+            /* modern */
+            min-height: 100dvh;
+            /* iOS 16+ */
+            min-height: 100vh;
+            /* fallback */
+            overflow: hidden;
+        }
+
+        /* background video */
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 50%;
+            /* center by default */
+            z-index: 0;
+        }
+
+        /* overlay now fills the hero */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            /* top:0; right:0; bottom:0; left:0 */
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            /* readable over video */
+            padding: clamp(16px, 4vw, 48px);
+            color: #fff;
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.45) 0%,
+                    rgba(0, 0, 0, 0.35) 40%,
+                    rgba(0, 0, 0, 0.45) 100%);
+        }
+
+
+        .hero-overlay h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .hero-overlay p {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        .highlight {
+            color: #ffce73;
+            /* warm golden accent */
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .emphasis {
+            color: #ff7b7b;
+            /* coral/red accent */
+            font-weight: 700;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.1em 0.3em;
+            border-radius: 6px;
+        }
+
+
+
+
+        header {
+            background-color: #ffe8db;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #e8505b;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #c63b48;
+        }
+
+        section {
+            padding: 3rem 2rem;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        section h2 {
+            color: #e8505b;
+            margin-bottom: 1rem;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li::before {
+            content: '✅';
+            margin-right: 0.5rem;
+        }
+
+        blockquote {
+            font-style: italic;
+            background: #fff0e5;
+            padding: 1rem;
+            border-left: 4px solid #e8505b;
+            margin: 1.5rem 0;
+        }
+
+        .teacher {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .teacher-profile {
+            background: #fef4f1;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .teacher-profile h3 {
+            margin-top: 0;
+            color: #d93c47;
+        }
+
+        .full-width {
+            max-width: none;
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+
+        .bg-image {
+            background-image: url("images/bg.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            /* full width background */
+            max-width: none;
+            width: 100%;
+            margin: 0;
+
+            /* only vertical padding, no horizontal */
+            padding: 4rem 0;
+
+            color: white;
+            position: relative;
+        }
+
+        .bg-image::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            /* dark overlay */
+            z-index: 0;
+        }
+
+        .bg-image>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* constrain and align text like other sections */
+        .bg-image .content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            /* same horizontal padding as normal sections */
+        }
+
+
+        .cta-section {
+            background: #fffaf7;
+            /* same as site background */
+            color: #333;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+
+        .cta-section .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            color: #e8505b;
+            /* keep heading in brand color */
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        /* brand-colored button */
+        .cta-section .cta-button {
+            background: #e8505b;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .cta-section .cta-button:hover {
+            background: #c63b48;
+        }
+
+
+
+
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: #ffe8db;
+            font-size: 1.2rem;
+        }
+
+
+        .footer-cta {
+            background: #ffe8db;
+            /* matches your accent sections */
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #333;
+        }
+
+        .footer-cta .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-cta h2 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            color: #e8505b;
+        }
+
+        .footer-cta p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-cta .cta-button {
+            background: #e8505b;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .footer-cta .cta-button:hover {
+            background: #c63b48;
+        }
+
+
+        @media (min-width: 600px) {
+            .teacher {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .teacher-profile {
+                width: 48%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="hero">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="videos/hero.mp4" type="video/mp4" />
+            <source src="videos/hero.webm" type="video/webm" />
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="hero-overlay">
+            <h1>
+                Niekada nešokai <span class="highlight">Bachatos?</span><br>
+                Tu esi būtent tas žmogus, kurio laukiame
+            </h1>
+            <p>
+                <strong>Pradedančiųjų Bachatos pamokos Utenoje</strong> – Išmok populiariausią šokį Europoje ir
+                susipažink su naujais žmonėmis.<br>
+                Ateik, pabandyk, ir leisk muzikai tave pradžiuginti.
+                <span class="emphasis">Patirtis nereikalinga</span> – tik noras judėti.
+            </p>
+            <a href="https://www.facebook.com/groups/bachatautena" class="cta-button" target="_blank">
+                Prisijunk prie Bachata Utena „Facebook“ grupės →
+            </a>
+            <p style="font-style: italic;">Mūsų draugai:</p>
+        </div>
+
+    </header>
+
+
+
+    <section class="full-width">
+
+        <script src="https://widget.senja.io/widget/7a313a3f-2a40-449f-8f28-bade2d9752bc/platform.js"
+            type="text/javascript" async></script>
+        <div class="senja-embed" data-id="7a313a3f-2a40-449f-8f28-bade2d9752bc" data-mode="shadow" data-lazyload="false"
+            style="display: block; width: 100%;"></div>
+    </section>
+
+
+    <section>
+        <h2>Empatija ir kvietimas</h2>
+        <blockquote>„Tai – pradedančiųjų grupė. Jokia išankstinė šokimo patirtis nereikalinga.“</blockquote>
+        <p>Turbūt nerimauji – ir tai visiškai normalu.<br>
+            Bet pas mus šokti ateina tokie patys žmonės kaip tu: pirmą kartą, šiek tiek nedrąsiai, bet su troškimu
+            pabandyti.</p>
+        <p>Mūsų tikslas paprastas: padėti tau atsipalaiduoti, pasijusti priimtam, ir pamilti judesį per muziką.</p>
+    </section>
+
+
+
+    <section class="bg-image">
+        <div class="content">
+            <h2><span class="highlight">Kuo išsiskiria Bachata Utena</span></h2>
+            <p><strong>Tai – ne tik šokių pamokos. Tai – bendruomenė.</strong></p>
+            <p>Bachata Utena skirta ne tam, kad parodytum, ką moki.<br>
+                Ji skirta tam, kad pajustum: esi laukiamas, esi priimtas, gali būti savimi.</p>
+            <p>Visi kažkada buvo pradedantieji.<br>
+                Visi padaro klaidų.<br>
+                Visi grįžta namo su šypsena veide.</p>
+        </div>
+    </section>
+
+
+    <section>
+        <h2>Kaip atrodo pirmoji pamoka</h2>
+        <ul class="checklist">
+            <li>Ateini – galbūt šiek tiek virpančiomis kojomis.</li>
+            <li>Tave pasitinkame šypsena, trumpai supažindiname su ritmu ir baziniais žingsniais.</li>
+            <li>Viskas vyksta lėtai, aiškiai, be spaudimo.</li>
+            <li>Judame, kartojame, juokiamės – ir staiga tu jau šoki.</li>
+        </ul>
+        <p><strong>Tikslas – ne šokti tobulai. Tikslas – tiesiog šokti.</strong></p>
+    </section>
+
+
+    <section class="full-width">
+
+        <script type="text/javascript" src="https://widget.senja.io/js/iframeResizer.min.js"></script>
+        <iframe id="wall-of-love-KbSBYsi" src="https://senja.io/p/bachatautena/KbSBYsi?hideNavigation=true&embed=true"
+            title="Wall of Love" frameborder="0" scrolling="no" width="100%">
+        </iframe>
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                iFrameResize({ log: false, checkOrigin: false }, "#wall-of-love-KbSBYsi");
+            });
+        </script>
+    </section>
+
+
+    <section class="cta-section">
+        <div class="content">
+            <h2>Pasiryžęs žengti pirmą žingsnį?</h2>
+            <p>Prisijunk prie mūsų bendruomenės ir atrask, kiek džiaugsmo gali suteikti Bachata.</p>
+            <a href="https://www.facebook.com/groups/bachatautena" class="cta-button" target="_blank">
+                Prisijunk prie Bachata Utena →
+            </a>
+        </div>
+    </section>
+
+
+
+    <section>
+        <h2>Dažniausios baimės – ir mūsų atsakymai</h2>
+        <p><strong>„Aš niekada nešokau.“</strong><br>Puiku! Dauguma mūsų mokinių tokie patys.</p>
+        <p><strong>„Bijau apsikvailinti.“</strong><br>Visi klysta. Pas mus tai ne problema – tai dalis smagumo.</p>
+        <p><strong>„Bijau būti vienas naujokas.“</strong><br>Tu tikrai nebūsi vienas. Ši grupė skirta pradedantiesiems.
+        </p>
+    </section>
+
+    <section>
+        <h2>Susipažink su mokytojais</h2>
+        <div class="teacher">
+            <div class="teacher-profile">
+                <h3>Augustinas</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at vestibulum mauris. Suspendisse
+                    potenti. Pellentesque et lacus nec sem ultrices scelerisque.</p>
+            </div>
+            <div class="teacher-profile">
+                <h3>Kotryna</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis tincidunt ligula, non tempus
+                    tortor. Sed pulvinar lacus non justo iaculis cursus.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <h2>Mažas žingsnis – didelis pokytis</h2>
+        <p>Kartais viskas prasideda nuo mažo sprendimo:<br>
+            Ateiti. Pabandyti. Leisti sau judėti be lūkesčių.</p>
+        <p>Ir po valandos jau išeini…<br>
+            … lengvesnis,<br>
+            … gyvesnis,<br>
+            … ir šiek tiek labiau tu.</p>
+        <p><strong>Bachata tai – ne tik šokis. Tai – gyvenimo akimirka.</strong></p>
+    </section>
+
+    <footer class="footer-cta">
+        <div class="content">
+            <h2>Dar galvoji?</h2>
+            <p>Ateik į pirmą pamoką ir pajusk, kaip Bachata pakeičia vakarą.
+                Mes pasiruošę tave sutikti su šypsena.</p>
+            <a href="https://www.facebook.com/groups/bachatautena" class="cta-button" target="_blank">
+                Prisijunk prie Bachata Utena →
+            </a>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
