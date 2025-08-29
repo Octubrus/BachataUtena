@@ -5,445 +5,438 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bachata Utena – Prisijunk ir Tu!</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
-    <link rel="icon" type="image/png" sizes="64x64" href="favicon-64x64.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            background: #fffaf7;
-            color: #333;
-        }
-
-
-
-        /* good globals */
-        html,
-        body {
-            height: 100%;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        /* hero container */
-        .hero {
-            position: relative;
-            /* use dynamic viewport units for mobile browser chrome */
-            min-height: 100svh;
-            /* modern */
-            min-height: 100dvh;
-            /* iOS 16+ */
-            min-height: 100vh;
-            /* fallback */
-            overflow: hidden;
-        }
-
-        /* background video */
-        .hero-video {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: 50% 50%;
-            /* center by default */
-            z-index: 0;
-        }
-
-        /* overlay now fills the hero */
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            /* top:0; right:0; bottom:0; left:0 */
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-
-            /* readable over video */
-            padding: clamp(16px, 4vw, 48px);
-            color: #fff;
-            background: linear-gradient(to bottom,
-                    rgba(0, 0, 0, 0.45) 0%,
-                    rgba(0, 0, 0, 0.35) 40%,
-                    rgba(0, 0, 0, 0.45) 100%);
-        }
-
-
-        .hero-overlay h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-
-        .hero-overlay p {
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
-            margin-bottom: 2rem;
-            max-width: 800px;
-        }
-
-        .highlight {
-            color: #ffce73;
-            /* warm golden accent */
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-        }
-
-        .emphasis {
-            color: #ff7b7b;
-            /* coral/red accent */
-            font-weight: 700;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.1em 0.3em;
-            border-radius: 6px;
-        }
-
-
-        .friends-title {
-            margin-top: 2rem;
-            font-style: italic;
-            font-size: 0.95rem;
-            opacity: 0.9;
-            text-align: center;
-            /* centered on all screens */
-        }
-
-
-        .friends-logos {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 600px) {
-            .friends-logos {
-                gap: 0.75rem 1rem;
-                /* smaller row/column gaps on mobile */
-            }
-        }
-
-        .friends-logos img {
-            height: 70px;
-            /* bigger logos */
-            width: auto;
-            object-fit: contain;
-            filter: brightness(0) invert(1);
-            opacity: 0.9;
-            transition: opacity 0.3s;
-        }
-
-        .friends-logos img:hover {
-            opacity: 1;
-        }
-
-
-        header {
-            background-color: #ffe8db;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        header p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: #e8505b;
-            color: white;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: background 0.3s;
-        }
-
-        .cta-button:hover {
-            background-color: #c63b48;
-        }
-
-        section {
-            padding: 3rem 2rem;
-            max-width: 800px;
-            margin: auto;
-        }
-
-        section h2 {
-            color: #e8505b;
-            margin-bottom: 1rem;
-        }
-
-        .checklist {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .checklist li::before {
-            content: '✅';
-            margin-right: 0.5rem;
-        }
-
-        blockquote {
-            font-style: italic;
-            background: #fff0e5;
-            padding: 1rem;
-            border-left: 4px solid #e8505b;
-            margin: 1.5rem 0;
-        }
-
-        .teacher {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .teacher-profile {
-            background: #fef4f1;
-            padding: 1rem;
-            border-radius: 10px;
-        }
-
-        .teacher-profile h3 {
-            margin-top: 0;
-            color: #d93c47;
-        }
-
-        .full-width {
-            max-width: none;
-            width: 100%;
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-
-        .bg-image {
-            background-image: url("images/bg.jpg");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-
-            /* full width background */
-            max-width: none;
-            width: 100%;
-            margin: 0;
-
-            /* only vertical padding, no horizontal */
-            padding: 4rem 0;
-
-            color: white;
-            position: relative;
-        }
-
-        .bg-image::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            /* dark overlay */
-            z-index: 0;
-        }
-
-        .bg-image>* {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* constrain and align text like other sections */
-        .bg-image .content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            /* same horizontal padding as normal sections */
-        }
-
-
-        .cta-section {
-            background: #fffaf7;
-            /* same as site background */
-            color: #333;
-            text-align: center;
-            padding: 3rem 2rem;
-        }
-
-
-        .cta-section .content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta-section h2 {
-            margin-bottom: 1rem;
-            font-size: 2rem;
-            color: #e8505b;
-            /* keep heading in brand color */
-        }
-
-        .cta-section p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-        }
-
-        /* brand-colored button */
-        .cta-section .cta-button {
-            background: #e8505b;
-            color: white;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: background 0.3s ease;
-        }
-
-        .cta-section .cta-button:hover {
-            background: #c63b48;
-        }
-
-
-
-
-
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: #ffe8db;
-            font-size: 1.2rem;
-        }
-
-
-        .footer-cta {
-            background: #ffe8db;
-            /* matches your accent sections */
-            text-align: center;
-            padding: 4rem 2rem;
-            color: #333;
-        }
-
-        .footer-cta .content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .footer-cta h2 {
-            margin-bottom: 1rem;
-            font-size: 2rem;
-            color: #e8505b;
-        }
-
-        .footer-cta p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-cta .cta-button {
-            background: #e8505b;
-            color: white;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: background 0.3s ease;
-        }
-
-        .footer-cta .cta-button:hover {
-            background: #c63b48;
-        }
-
-
-        .teachers {
-            padding: 3rem 2rem;
-            background: #fffaf7;
-            color: #333;
-        }
-
-        .teachers__wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            gap: 2rem;
-        }
-
-        .teachers__photo {
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        }
-
-        .teachers__photo img {
-            width: 100%;
-            height: auto;
-            /* natural height */
-            display: block;
-            object-fit: contain;
-            /* show the entire image */
-        }
-
-
-        .teachers__copy h2 {
-            color: #e8505b;
-            margin: 0 0 1rem 0;
-        }
-
-        .teachers__copy p {
-            margin: 0;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-
-        /* stack on mobile */
-        @media (max-width: 899px) {
-            .teachers__wrapper {
-                grid-template-columns: 1fr;
-            }
-
-            .teachers__copy {
-                order: -1;
-                /* text goes above image */
-                text-align: center;
-                /* optional: center-align for mobile */
-            }
-        }
-
-        /* two-column on desktop */
-        @media (min-width: 900px) {
-            .teachers__wrapper {
-                grid-template-columns: 1.1fr 1fr;
-                align-items: center;
-            }
-        }
-
-
-        .sub-footer {
-            border-top: 1px solid #eee;
-            text-align: right;
-            font-size: 0.85rem;
-            color: #777;
-            padding: 1rem;
-            padding-right: 2rem;
-            background: #fffaf7;
-            /* matches page bg */
-        }
+    <link rel="icon" href="favicon.ico">
+
+    body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background: #fffaf7;
+    color: #333;
+    }
+
+
+
+    /* good globals */
+    html,
+    body {
+    height: 100%;
+    }
+
+    * {
+    box-sizing: border-box;
+    }
+
+    /* hero container */
+    .hero {
+    position: relative;
+    /* use dynamic viewport units for mobile browser chrome */
+    min-height: 100svh;
+    /* modern */
+    min-height: 100dvh;
+    /* iOS 16+ */
+    min-height: 100vh;
+    /* fallback */
+    overflow: hidden;
+    }
+
+    /* background video */
+    .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    /* center by default */
+    z-index: 0;
+    }
+
+    /* overlay now fills the hero */
+    .hero-overlay {
+    position: absolute;
+    inset: 0;
+    /* top:0; right:0; bottom:0; left:0 */
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    /* readable over video */
+    padding: clamp(16px, 4vw, 48px);
+    color: #fff;
+    background: linear-gradient(to bottom,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.35) 40%,
+    rgba(0, 0, 0, 0.45) 100%);
+    }
+
+
+    .hero-overlay h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    }
+
+    .hero-overlay p {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    margin-bottom: 2rem;
+    max-width: 800px;
+    }
+
+    .highlight {
+    color: #ffce73;
+    /* warm golden accent */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .emphasis {
+    color: #ff7b7b;
+    /* coral/red accent */
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.1em 0.3em;
+    border-radius: 6px;
+    }
+
+
+    .friends-title {
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.95rem;
+    opacity: 0.9;
+    text-align: center;
+    /* centered on all screens */
+    }
+
+
+    .friends-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+    .friends-logos {
+    gap: 0.75rem 1rem;
+    /* smaller row/column gaps on mobile */
+    }
+    }
+
+    .friends-logos img {
+    height: 70px;
+    /* bigger logos */
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+    transition: opacity 0.3s;
+    }
+
+    .friends-logos img:hover {
+    opacity: 1;
+    }
+
+
+    header {
+    background-color: #ffe8db;
+    padding: 4rem 2rem;
+    text-align: center;
+    }
+
+    header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    }
+
+    header p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    }
+
+    .cta-button {
+    display: inline-block;
+    background-color: #e8505b;
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s;
+    }
+
+    .cta-button:hover {
+    background-color: #c63b48;
+    }
+
+    section {
+    padding: 3rem 2rem;
+    max-width: 800px;
+    margin: auto;
+    }
+
+    section h2 {
+    color: #e8505b;
+    margin-bottom: 1rem;
+    }
+
+    .checklist {
+    list-style: none;
+    padding-left: 0;
+    }
+
+    .checklist li::before {
+    content: '✅';
+    margin-right: 0.5rem;
+    }
+
+    blockquote {
+    font-style: italic;
+    background: #fff0e5;
+    padding: 1rem;
+    border-left: 4px solid #e8505b;
+    margin: 1.5rem 0;
+    }
+
+    .teacher {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    }
+
+    .teacher-profile {
+    background: #fef4f1;
+    padding: 1rem;
+    border-radius: 10px;
+    }
+
+    .teacher-profile h3 {
+    margin-top: 0;
+    color: #d93c47;
+    }
+
+    .full-width {
+    max-width: none;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    }
+
+
+    .bg-image {
+    background-image: url("images/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* full width background */
+    max-width: none;
+    width: 100%;
+    margin: 0;
+
+    /* only vertical padding, no horizontal */
+    padding: 4rem 0;
+
+    color: white;
+    position: relative;
+    }
+
+    .bg-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    /* dark overlay */
+    z-index: 0;
+    }
+
+    .bg-image>* {
+    position: relative;
+    z-index: 1;
+    }
+
+    /* constrain and align text like other sections */
+    .bg-image .content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    /* same horizontal padding as normal sections */
+    }
+
+
+    .cta-section {
+    background: #fffaf7;
+    /* same as site background */
+    color: #333;
+    text-align: center;
+    padding: 3rem 2rem;
+    }
+
+
+    .cta-section .content {
+    max-width: 800px;
+    margin: 0 auto;
+    }
+
+    .cta-section h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #e8505b;
+    /* keep heading in brand color */
+    }
+
+    .cta-section p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    }
+
+    /* brand-colored button */
+    .cta-section .cta-button {
+    background: #e8505b;
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    }
+
+    .cta-section .cta-button:hover {
+    background: #c63b48;
+    }
+
+
+
+
+
+    footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #ffe8db;
+    font-size: 1.2rem;
+    }
+
+
+    .footer-cta {
+    background: #ffe8db;
+    /* matches your accent sections */
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #333;
+    }
+
+    .footer-cta .content {
+    max-width: 800px;
+    margin: 0 auto;
+    }
+
+    .footer-cta h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #e8505b;
+    }
+
+    .footer-cta p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    }
+
+    .footer-cta .cta-button {
+    background: #e8505b;
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    }
+
+    .footer-cta .cta-button:hover {
+    background: #c63b48;
+    }
+
+
+    .teachers {
+    padding: 3rem 2rem;
+    background: #fffaf7;
+    color: #333;
+    }
+
+    .teachers__wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem;
+    }
+
+    .teachers__photo {
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .teachers__photo img {
+    width: 100%;
+    height: auto;
+    /* natural height */
+    display: block;
+    object-fit: contain;
+    /* show the entire image */
+    }
+
+
+    .teachers__copy h2 {
+    color: #e8505b;
+    margin: 0 0 1rem 0;
+    }
+
+    .teachers__copy p {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    }
+
+
+    /* stack on mobile */
+    @media (max-width: 899px) {
+    .teachers__wrapper {
+    grid-template-columns: 1fr;
+    }
+
+    .teachers__copy {
+    order: -1;
+    /* text goes above image */
+    text-align: center;
+    /* optional: center-align for mobile */
+    }
+    }
+
+    /* two-column on desktop */
+    @media (min-width: 900px) {
+    .teachers__wrapper {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    }
+    }
+
+
+    .sub-footer {
+    border-top: 1px solid #eee;
+    text-align: right;
+    font-size: 0.85rem;
+    color: #777;
+    padding: 1rem;
+    padding-right: 2rem;
+    background: #fffaf7;
+    /* matches page bg */
+    }
     </style>
 </head>
 
