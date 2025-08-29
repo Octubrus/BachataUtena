@@ -103,6 +103,43 @@
         }
 
 
+        .friends-title {
+            margin-top: 2rem;
+            font-style: italic;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            text-align: center;
+            /* centered on all screens */
+        }
+
+
+        .friends-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .friends-logos {
+                gap: 0.75rem 1rem;
+                /* smaller row/column gaps on mobile */
+            }
+        }
+
+        .friends-logos img {
+            height: 70px;
+            /* bigger logos */
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .friends-logos img:hover {
+            opacity: 1;
+        }
 
 
         header {
@@ -425,8 +462,19 @@
             <a href="https://www.facebook.com/groups/bachatautena" class="cta-button" target="_blank">
                 Prisijunk prie Bachata Utena „Facebook“ grupės →
             </a>
-            <p style="font-style: italic;">Mūsų draugai:</p>
+
+            <p class="friends-title">Mūsų draugai:</p>
+            <div class="friends-logos">
+                <img src="images/RLGYM.png" alt="RL Gym">
+                <img src="images/TERASA.png" alt="Pakrantės Terasa">
+                <img src="images/KULTUROSCENTRAS.png" alt="Utenos Kultūros Centras">
+                <img src="images/UTENOSDIENA.png" alt="Utenos Diena">
+                <img src="images/KULTURISTAS.png" alt="Kultūristas">
+            </div>
+
         </div>
+
+
 
     </header>
 
