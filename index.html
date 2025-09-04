@@ -377,16 +377,29 @@
             }
         }
 
-        /* footer CTA */
+
         .footer-cta {
-            background: #ffe8db;
-            /* accent */
+            background: url("images/utena.JPG") center/cover no-repeat;
             text-align: center;
             padding: 4rem 2rem;
-            color: #333;
+            color: #fff;
+            /* switch to white for contrast */
+            position: relative;
+        }
+
+        .footer-cta::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            /* dark overlay */
+            z-index: 0;
         }
 
         .footer-cta .content {
+            position: relative;
+            z-index: 1;
+            /* keep text above overlay */
             max-width: 800px;
             margin: 0 auto;
         }
@@ -394,7 +407,7 @@
         .footer-cta h2 {
             margin-bottom: 1rem;
             font-size: 2rem;
-            color: #e8505b;
+            color: #ffce73;
         }
 
         .footer-cta p {
